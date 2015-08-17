@@ -1,0 +1,36 @@
+<head>
+		<script>
+
+function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+
+    var champKillArray = new Array();
+    var test = JSON.parse(xmlHttp.responseText);
+    console.log(test);
+
+    //Start at index of 1 because first frame is timestamp 0, no event has happened
+    for (var i=1;i<test.frames.length;i++){
+    	for (var j=0;j<test.frames[i].events.length;j++) {
+    		if (test.frames[i].events[j].type=="CHAMPION_KILL") {
+    			champKillArray.push(Math.round(test.frames[i].events[j].timestamp/1000));
+    		}
+    	}
+    }
+    
+    for (var i=0;i<champKillArray.length;i++) {
+    	alert(champKillArray[i]);
+    }
+}
+
+</script>
+</head>
+<body>
+
+
+		<button type="button" onclick="httpGet('https://acs.leagueoflegends.com/v1/stats/game/TRKR1/670321/timeline?gameHash=8d498f540cd33bc0');">Click Me!</button>
+		<div id="JSON"></div>
+</body>
+
+
