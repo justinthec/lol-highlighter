@@ -10,8 +10,6 @@ function getTimestamps(theUrl) {
     var combinedEnd;
     var killCounter = 1;
     var allKills = "";
-    var 
-    var start;
     var end;
     var gameData = JSON.parse(xmlHttp.responseText);
     console.log(gameData);
