@@ -1,38 +1,9 @@
 <head>
-        <script>
-
-function httpGet(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-
-    var champKillArray = new Array();
-    var test = JSON.parse(xmlHttp.responseText);
-    console.log(test);
-
-    //Start at index of 1 because first frame is timestamp 0, no event has happened
-    for (var i=1;i<test.frames.length;i++){
-        for (var j=0;j<test.frames[i].events.length;j++) {
-            if (test.frames[i].events[j].type=="CHAMPION_KILL") {
-                var mins = test.frames[i].events[j].timestamp/60000
-                champKillArray.push(Math.floor(mins) + ":" + Math.floor((mins%1)*60));
-            }
-        }
-    }
-    
-    var allKills = "";
-    for (var i=0;i<champKillArray.length;i++) {
-        allKills += (i+1) + ": " + champKillArray[i]+"<br>";
-    }
-
-    document.getElementById("JSON").innerHTML = allKills;
-}
-
-</script>
+    <script src='js/generatetimestamps.js'></script>
 </head>
 <body>
 
 
-        <button type="button" onclick="httpGet('https://acs.leagueoflegends.com/v1/stats/game/TRLH1/1001340118/timeline?gameHash=a36c8ab58f36e52a');">GIMME DAT!</button>
+        <button type="button" onclick="getTimestamps('https://acs.leagueoflegends.com/v1/stats/game/TRLH1/1001340118/timeline?gameHash=a36c8ab58f36e52a');">GIMME DAT!</button>
         <div id="JSON"></div>
 </body>
